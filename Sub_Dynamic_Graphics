@@ -1,0 +1,23 @@
+Private Sub Worksheet_Change(ByVal Target As Range)
+
+Dim grafico As ChartObject
+
+If Target.Row = 4 Then
+    
+    coluna_semana = WorksheetFunction.Match(Target.Offset(-1, 0), Rows("3:3"), 0)
+    
+    If WorksheetFunction.CountBlank(Range(Cells(4, coluna_semana), Cells(4, coluna_semana + 6))) = 0 Then
+    
+        Set grafico = ActiveSheet.ChartObjects.Add( _
+            Left:=Cells(6, coluna_semana).Left, _
+            Width:=Range("b3").Width * 7, _
+            Top:=Range("c5").Top, _
+            Height:=Range("c2").Height * 14)
+            
+        grafico.Chart.SetSourceData Source:=Range(Cells(4, coluna_semana), Cells(4, coluna_semana + 6))
+        
+    End If
+
+End If
+
+End Sub
